@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+  <title>Sistema de Ventas AhJijo</title>
     <div id="nav">
       <router-link to="/">Home</router-link>
     </div>

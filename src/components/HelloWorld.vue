@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <title>Sistema de Ventas AhJijo</title>
     <h1>{{ msg }}</h1>
     
   </div>

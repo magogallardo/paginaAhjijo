@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <title>Sistema de ventas </title>
     <HelloWorld msg="Esto se convertirá en la página de AhJijo Esta es la Buena" />
     <img alt="Ahjijo logo" src="../assets/logo.png" />
   </div>
@@ -17,3 +16,9 @@ export default {
   }
 };
 </script>
+<style>
+  body{
+    background-color: #ffdd90;
+    background-image: url("../assets/fondo.jpg");
+  }
+</style>

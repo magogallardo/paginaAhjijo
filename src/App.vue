@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <title>Esta es la buena</title>
+  <title>Esta es la buena | AhJijo!</title>
     <div id="nav">
       <router-link to="/">Home</router-link>
     </div>

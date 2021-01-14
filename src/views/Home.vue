@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <title>Sistema de ventas </title>
-    <HelloWorld msg="Esto se convertirá en el sistema de venta AhJijo" />
+    <HelloWorld msg="Esto se convertirá en la página oficial de AhJijo Esta es la Buena" />
     <img alt="Ahjijo logo" src="../assets/logo.png" />
   </div>
 </template>

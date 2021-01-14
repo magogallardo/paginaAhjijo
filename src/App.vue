@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <title>Sistema de Ventas AhJijo</title>
+  <title>Esta es la buena</title>
     <div id="nav">
       <router-link to="/">Home</router-link>
     </div>

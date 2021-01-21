@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Esto se convertirá en la página de AhJijo Esta es la Buena" />
+    <HelloWorld
+      msg="Esto se convertirá en la página de AhJijo Esta es la Buena"
+    />
     <img alt="Ahjijo logo" src="../assets/logo.png" />
   </div>
 </template>
@@ -17,8 +19,8 @@ export default {
 };
 </script>
 <style>
-  body{
-    background-color: #ffdd90;
-    background-image: url("../assets/fondo.jpg");
-  }
+body {
+  background-color: #ffdd90;
+  background-image: url("../assets/fondo.jpg");
+}
 </style>

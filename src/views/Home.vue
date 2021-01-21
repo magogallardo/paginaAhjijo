@@ -19,8 +19,5 @@ export default {
 };
 </script>
 <style>
-body {
-  background-color: #ffdd90;
-  background-image: url("../assets/fondo.jpg");
-}
+
 </style>

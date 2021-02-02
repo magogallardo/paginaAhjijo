@@ -1,23 +1,20 @@
 # Página web de AhJijo Esta es la buena 
 
-## Project setup
+
+## Proyecto realizado con el Framework Vue (Escrito en Javascript) con frontEnd de Vuetify
+## Para instalar NPM (Gestor de paquetes de Vue)
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compilar y cargar en el entorno local
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compilar para producción
 ```
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration

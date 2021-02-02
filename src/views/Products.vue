@@ -1,149 +1,80 @@
 <template>
-  <v-sheet id="productosVista"
-
-    class="mx-auto"
-    elevation="8"
-    max-width="100%"
-    
-  >
-    <v-container> 
-
-      <v-divider></v-divider>
-
-      <v-row>
-
-        <v-col cols="4"> </v-col>
-
-
-        <v-col cols="4">
-
-          <h1 id="encabezadoProductos" >Productos:</h1>
+    <div>
+        <v-parallax
         
-        </v-col>
-
-
-        <v-col cols="4">
-
-          <router-link to="/products" ><h3 id="verMasProductos">Ver todos</h3></router-link>
-          
-
-
-        </v-col>
-      </v-row>
-      
-      <v-divider></v-divider>
-   
-   </v-container>
-
-    <v-slide-group 
-      v-model="model"
-      class="pa-4"
-      show-arrows
+      src="../assets/Propuesta02-01.png"
+      height="auto"
     >
-      <v-slide-item
-        v-for="product in products"
-        :key="product"
-        v-slot="{ active, toggle }"
-      >
-        <v-card
-          :color="active ? 'primary' : 'grey lighten-1'"
-          class="ma-4"
-          height="200"
-          width="150"
-          @click="toggle"
-        >
-          <v-img
-            v-bind:src="require('../assets/productos/' + product.src)"
-            class="white--text align-end"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.3)"
-            height="200"
-            width="300"
-          >
-            <v-card-title class="white--text mt-2" v-text="product.name" ></v-card-title>
-            
-          </v-img>
-            
-          <v-row
-            class="fill-height"
-            align="center"
-            justify="center"
-          >
-            <v-scale-transition>
-              <v-icon
-                v-if="active"
-                color="white"
-                size="48"
-                v-text="'mdi-close-circle-outline'"
-              ></v-icon>
-            </v-scale-transition>
-          </v-row>
-        </v-card>
-      </v-slide-item>
-    </v-slide-group>
 
-    <v-expand-transition>
-      <v-sheet
-        v-if="model != null"
-        height="200"
-        tile
-        id="descripcionProducto"
+    <v-row
+      align="top"
+      justify="center"
+    >
+      <v-col
+        class="text-center"
+        cols="7"
       >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <h3 class="title">
-            
-            Precio: {{ model }}
-          </h3>
+        <h1 id = "encabezadoProductos">
+          Productos disponbles
+        </h1>
+      </v-col>
+
+    </v-row>
+
+    <v-container>
+        
+        <v-row>
+        <v-col  v-for="product in products" :key="product" >
+            <v-card
+                class="ma-4"
+                height="200"
+                width="150"
+            >
+            <v-img
+              v-bind:src="require('../assets/productos/' + product.src)"
+              class="white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="200"
+              width="300"
+            >
+              <v-card-title v-text="product.name"></v-card-title>
+            </v-img>
+            </v-card>
+        </v-col>
         </v-row>
-      </v-sheet>
-    </v-expand-transition>
-  </v-sheet>
+
+
+
+    </v-container>
+
+
+
+
+    </v-parallax>
+    </div>
 </template>
+
 
 <style>
 
-#nombreProducto{
-  size: 10px;
-}
 
-#verMasProductos{
-  text-align: center;
-  color:#e5ddcd;
-  -webkit-text-fill-color:#e5ddcd; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color:#4a4e2e;
-}
-
-#encabezadoProductos{
-
-  font-size: 50px;
-  -webkit-text-fill-color:#8e2442; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #4a4e2e;
-}
-#productosVista{
-  background-image: url("../assets/Propuesta03-01.png");
-  background-size: 100%;
-  background-position-y: -200px;
-  
-}
-#descripcionProducto{
-  background-color: #e5ddcd;
-} 
 
 </style>
 
-
-
 <script>
-  export default {
+
+
+export default {
+
+    name: "Products",
+    components: {
+      
+    },
+
     data: () => ({
       selectedProduct: '',
       model: null,
-    
+
       products: [
         {name: 'Linaza. ', src: 'Inventario_Linaza.jpeg', descr: '', price: '0'},
         {name: 'Canela Rajas. ', src: 'Inventario_CanelaRajas.jpeg', descr: '', price: '0'},
@@ -249,10 +180,10 @@
         {name: 'Alegria Combinada. ', src: 'Inventario_AlegriaCombinada.jpeg', descr: '', price: '0'},
         {name: 'Levadura Tradipan03. ', src: 'Inventario_LevaduraTradipan03.jpeg', descr: '', price: '0'},
         {name: 'Pasitas Chocolate. ', src: 'Inventario_PasitasChocolate.jpeg', descr: '', price: '0'},
-        {name: 'Chile Ancho. ', src: 'Inventario_ChileAncho.jpeg', descr: '', price: '0'},
-
+        {name: 'Chile Ancho. ', src: 'Inventario_ChileAncho.jpeg', descr: '', price: '0'},  
       ],
-    
+
     }),
-  }
+
+};
 </script>

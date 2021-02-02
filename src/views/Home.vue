@@ -1,20 +1,31 @@
 <template>
   <div class="home">
-    <HelloWorld
-      msg="Esto se convertirá en la página de AhJijo Esta es la Buena"
-    />
-    <img alt="Ahjijo logo" src="../assets/logo.png" />
+    
+    <v-main>
+
+      <carrousel/>
+      <products/>
+      <recetas/>
+      <info/>
+
+    </v-main>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import carrousel from "../components/carrousel.vue"
+import products from "../components/products.vue"
+import info from "../components/info.vue"
+import recetas from "../components/recetas.vue"
+
 
 export default {
   name: "Home",
   components: {
-    HelloWorld
+    products,
+    info,
+    recetas,
+    carrousel
   }
 };
 </script>

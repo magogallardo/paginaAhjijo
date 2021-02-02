@@ -5,10 +5,18 @@
       <v-layout>
 
         <v-card-text>
+          <v-row
+            align="center"
+            justify="center"
+          >
+            <v-col cols="1">
+              <v-icon size="24px" @click="facebook">mdi-facebook</v-icon>      
+            </v-col>
 
-          <v-icon size="24px" @click="facebook">mdi-facebook</v-icon>      
-          <v-icon size="24px" @click="instagram">mdi-instagram</v-icon>
-
+            <v-col cols="1">
+              <v-icon size="24px" @click="instagram">mdi-instagram</v-icon>
+            </v-col>
+          </v-row>
         </v-card-text>
       
       </v-layout>

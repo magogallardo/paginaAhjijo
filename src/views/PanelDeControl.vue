@@ -92,9 +92,6 @@
             expandInfo: false,
             expandProductos: true,
             expandRecetas: true,
-
-            //Variables para agregar productos
-
             
 
 

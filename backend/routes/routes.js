@@ -58,4 +58,28 @@ router.get('/Info', showPageInfo);
 //____ Tipo ||   Ruta    || Controlador
 router.put('/Info/updateAll', updateAllInfoController);
 
+
+    /*
+        //////////////////
+             Receta
+        /////////////////
+    */
+
+
+import {showRecetas, createReceta, deleteReceta, updateReceta} from "../controllers/receta.js"
+
+//_________________________________ Mostrar todas las recetas
+router.get('/Recetas', showRecetas);
+
+//_________________________________ Insertar una nueva receta
+router.post('/Recetas', createReceta);
+
+//_________________________________ Borrar una receta
+router.delete('/Receta/:id', deleteReceta);
+
+//__________________________________________Actualizar un producto por id
+router.put('/Receta/:id', updateProduct);
+
+
+
 export default router;

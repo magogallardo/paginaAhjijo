@@ -39,6 +39,7 @@ CREATE TABLE Receta(
 	Receta_id INT NOT NULL auto_increment,
 	Titulo VARCHAR(50) NOT NULL,
 	Descr VARCHAR(80) NOT NULL,
+	Preparacion VARCHAR(1000),
 	TiempoPreparacion INT NOT NULL,
 	Likes INT NOT NULL,
 
@@ -50,6 +51,20 @@ CREATE TABLE Receta(
 	PRIMARY KEY(Receta_id)
 
 );
+
+INSERT INTO Receta(Titulo, Descr, Preparacion, TiempoPreparacion, Likes, Foto, Tipo_id, Creado)
+VALUES(	"Alitas Ah Jijo",
+ 		"Ps unas alitas con la salsa esa jsja",
+"Agarras las alitas
+les pones la salsa ah jijo
+Despues las sirves en un plato
+Y te las comes",
+		120,
+		1,
+		"MyPhotoAlitas.jpg",
+		1,
+		'2021-03-26 02:43:19'
+		);
 
 CREATE TABLE Producto(
 

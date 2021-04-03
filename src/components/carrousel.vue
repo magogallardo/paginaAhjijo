@@ -32,7 +32,7 @@
         items: [
           {src: "crr7.jpeg", position: '0px -310px'},  
           {src: "crr4.png", position: '0px -50px'},
-          {src: "crr1.jpeg", position: '0px -400px'},
+          {src: "crr1.jpeg", position: '0px -300px'},
           {src: "crr2.jpeg", position: '0px -350px'},
           {src: "crr3.jpeg", position: '0px -450px'},
           {src: "crr5.jpeg", position: '0px -450px'},

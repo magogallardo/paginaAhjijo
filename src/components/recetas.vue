@@ -16,7 +16,7 @@
         justify="right"
       >
         <v-col
-          class="text-right"
+          class="text-left ml-15"
           cols="10"
         >
           <h1 id = "encabezadoRecetas">
@@ -37,7 +37,7 @@
               :key="receta"
               cols="6"
                 >
-                <v-card dark>
+                <v-card>
                     <v-img
                         v-bind:src="require('../assets/recetas/' + receta.src)"
                         class="white--text align-end"
@@ -55,18 +55,14 @@
                     <v-card-actions>
                           <v-spacer></v-spacer>
 
+                          <v-btn to="/recetas">
+                            Leer
+                          </v-btn>
 
                           <v-btn icon>
                             <v-icon>mdi-heart</v-icon>
                           </v-btn>
 
-                          <v-btn icon>
-                            <v-icon>mdi-bookmark</v-icon>
-                          </v-btn>
-
-                          <v-btn icon>
-                            <v-icon>mdi-share-variant</v-icon>
-                          </v-btn>
                     </v-card-actions>
                 </v-card>
 
@@ -97,11 +93,12 @@
                   
                 >  
                     
-                    <router-link to="/about" >Ver todas</router-link>
+                    <router-link to="/Recetas" >Ver todas</router-link>
                     
                 </v-card>
               </div>
             </v-col>
+            
         </v-row>
     </v-container>
   </v-parallax>
@@ -140,9 +137,12 @@ export default {
     name: "recetas",
     
     data: () => ({
-
+      
         recetasList: [
-            {
+            {   
+
+              ////Parte estática a modificar después
+                id: "1",
                 title: "Alitas Ah Jijo!",
                 src: "alitas.jpeg",
                 descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
@@ -150,7 +150,9 @@ export default {
                 steps: [ ],
 
             },
-            {
+            {   
+              //Parte estática a modificar después
+                id: "2",
                 title: "Enchiladas Ah Jijo!",
                 src: "enchiladas.jpeg",
                 descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
@@ -159,6 +161,7 @@ export default {
 
             },
             {
+                id: "3",
                 title: "Brochetas Ah Jijo!",
                 src: "alitas.jpeg",
                 descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",

@@ -1,5 +1,5 @@
 <template>
-  <v-footer padless dark>
+  <v-footer padless >
     
     <v-col class ="text-center" cols="12">
       <v-layout>
@@ -30,8 +30,6 @@
       {{ new Date().getFullYear() }} — <strong>Ah Jijo! Esta es la buena</strong>
     </v-col>
 
-
-
   </v-footer>
 </template>
 
@@ -40,11 +38,10 @@
   export default {
     name: "footer1",
     data: () => ({
-      icons: [
-        'mdi-facebook',
-        'mdi-instagram',
-      ],
+ 
+      showTest: false,
     }),
+    
     methods: {
       facebook(){
         window.location.href = 'https://www.facebook.com/Ah-Jijo-Ésta-es-la-buena-2024980200865330';

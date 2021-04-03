@@ -10,26 +10,31 @@
 
       <v-divider></v-divider>
 
-      <v-row>
+      <v-row
+        align="center"
+        justify="center"
+      >
 
-        <v-col cols="4"> </v-col>
+        <v-col 
+          cols="12" 
+          class="text-right"
+        > 
 
+          <h1 id="encabezadoProductos" 
+          >Productos:</h1>
 
-        <v-col cols="4">
+        </v-col>
+        <v-col
+          class="text-right"
+        >
 
-          <h1 id="encabezadoProductos" >Productos:</h1>
+        <router-link to="/products" ><h3 id="verMasProductos">Ver todos</h3></router-link>
+        </v-col>
+
         
-        </v-col>
-
-
-        <v-col cols="4">
-
-          <router-link to="/products" ><h3 id="verMasProductos">Ver todos</h3></router-link>
-          
-
-
-        </v-col>
+        
       </v-row>
+
       
       <v-divider></v-divider>
    
@@ -43,63 +48,57 @@
       <v-slide-item
         v-for="product in products"
         :key="product"
-        v-slot="{ active, toggle }"
+        v-slot="{  toggle }"
       >
         <v-card
-          :color="active ? 'primary' : 'grey lighten-1'"
+        to="/products"
+          
           class="ma-4"
-          height="200"
-          width="150"
+          height="auto"
+          width="300"
           @click="toggle"
         >
           <v-img
             v-bind:src="require('../assets/productos/' + product.src)"
-            class="white--text align-end"
+            class="black--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.3)"
             height="200"
             width="300"
           >
-            <v-card-title class="white--text mt-2" v-text="product.name" ></v-card-title>
-            
-          </v-img>
-            
           <v-row
             class="fill-height"
             align="center"
-            justify="center"
+            justify="center"  
           >
-            <v-scale-transition>
-              <v-icon
-                v-if="active"
-                color="white"
-                size="48"
-                v-text="'mdi-close-circle-outline'"
-              ></v-icon>
-            </v-scale-transition>
+            
           </v-row>
+            
+          </v-img>
+          
+          <v-card-actions>
+            <v-card-title class="black--text mt-2" v-text="product.name" ></v-card-title>         
+          </v-card-actions>
+
+          
         </v-card>
       </v-slide-item>
     </v-slide-group>
 
-    <v-expand-transition>
-      <v-sheet
-        v-if="model != null"
-        height="200"
-        tile
-        id="descripcionProducto"
+    <v-row 
+        align="right" 
+        justify="center"
       >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
+        
+        <v-col 
+          cols="12"
+          class="mb-8"
         >
-          <h3 class="title">
-            
-            Precio: {{ model }}
-          </h3>
-        </v-row>
-      </v-sheet>
-    </v-expand-transition>
+          
+        </v-col>
+
+      </v-row>
+
+    
   </v-sheet>
 </template>
 
@@ -110,7 +109,7 @@
 }
 
 #verMasProductos{
-  text-align: center;
+  text-align: right;
   color:#e5ddcd;
   -webkit-text-fill-color:#e5ddcd; /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 1px;
@@ -125,9 +124,9 @@
   -webkit-text-stroke-color: #4a4e2e;
 }
 #productosVista{
-  background-image: url("../assets/Propuesta03-01.png");
+  background-image: url("../assets/fondoProductos.jpeg");
   background-size: 100%;
-  background-position-y: -200px;
+  background-position-y: 0;
   
 }
 #descripcionProducto{

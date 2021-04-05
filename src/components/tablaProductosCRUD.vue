@@ -37,7 +37,7 @@
                 -->
                 <v-dialog
                     v-model="dialog"
-                    max-width="500px"
+                    max-width="700px"
                 >   
                     <template v-slot:activator="{on, attrs}">
                         <v-btn
@@ -47,7 +47,7 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            Crear nuevo
+                            Agregar producto
                         </v-btn>
                     </template>
                     <v-card>
@@ -99,6 +99,8 @@
                                         <v-text-field
                                             v-model="editedProduct.Precio"
                                             label="Precio"
+                                            prefix="$"
+                                            value="number"
                                         ></v-text-field>
                                     </v-col>
                                     <v-col
@@ -107,10 +109,13 @@
                                         md="4"
                                     >
                                     <!-- Campo de nombre de foto -->
-                                        <v-text-field
-                                            v-model="editedProduct.Foto"
-                                            label="Foto(Texto)"
-                                        ></v-text-field>
+                                        <template>
+                                            <v-file-input
+                                                label="File input"
+                                                filled
+                                                prepend-icon="mdi-camera"
+                                            ></v-file-input>
+                                        </template>
                                     </v-col>
                                     <v-col
                                         cols="12"
@@ -215,9 +220,12 @@ export default {
 
     name: "tablaProductosCRUD",
 
+
+
     data: ()=> ({
 
         Productos: [],
+        formTitle: "Agrega un nuevo producto",
 
         dialog: false,
         dialogDelete: false,

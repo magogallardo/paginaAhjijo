@@ -75,10 +75,10 @@ router.get('/Recetas', showRecetas);
 router.post('/Recetas', createReceta);
 
 //_________________________________ Borrar una receta
-router.delete('/Receta/:id', deleteReceta);
+router.delete('/Recetas/:id', deleteReceta);
 
 //__________________________________________Actualizar un producto por id
-router.put('/Receta/:id', updateProduct);
+router.put('/Recetas/:id', updateReceta);
 
 
 

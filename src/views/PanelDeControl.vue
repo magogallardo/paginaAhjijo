@@ -61,7 +61,9 @@
                     v-show="expandRecetas"
                     cols="12"
                 >
-                <h1>holaRecetas</h1>
+
+                    <tablaRecetasCRUD/>
+
                 </v-col>
             </v-expand-transition>
 
@@ -74,13 +76,16 @@
 
     import tablaInfoCRUD from "../components/tablaInfoCRUD"
     import tablaProductosCRUD from "../components/tablaProductosCRUD"
+    import tablaRecetasCRUD from "../components/tablaRecetasCRUD"
 
     export default { 
         name: "PanelDeControl",
 
         components: {
+
             tablaInfoCRUD,
             tablaProductosCRUD,
+            tablaRecetasCRUD,
             
         },
          

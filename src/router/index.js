@@ -26,7 +26,7 @@ const routes = [
     component: About
   },
   {
-    path: "/products",
+    path: "/products/:tipo",
     name: "Products",
     component: Products
 

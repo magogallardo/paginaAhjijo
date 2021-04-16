@@ -40,10 +40,19 @@
             <v-expand-transition>
                 <v-col
                     v-show="expandProductos"
-                    cols="12"
+                    cols="8"
                 >
                     <!-- Usando el componente de tabla de productos CRUD -->
                     <tablaProductosCRUD/>
+
+                    <!-- Columna de los tipos de producto -->
+                    <v-col
+                        cols="6"
+                    >
+                        <!-- Usando el componente de la tabla de tipos CRUD -->
+                        <tablaTipoCRUD/>
+
+                    </v-col>
 
                 </v-col>
             </v-expand-transition>
@@ -77,6 +86,7 @@
     import tablaInfoCRUD from "../components/tablaInfoCRUD"
     import tablaProductosCRUD from "../components/tablaProductosCRUD"
     import tablaRecetasCRUD from "../components/tablaRecetasCRUD"
+    import tablaTipoCRUD from "../components/tablaTipoCRUD"
 
     export default { 
         name: "PanelDeControl",
@@ -86,6 +96,7 @@
             tablaInfoCRUD,
             tablaProductosCRUD,
             tablaRecetasCRUD,
+            tablaTipoCRUD
             
         },
          

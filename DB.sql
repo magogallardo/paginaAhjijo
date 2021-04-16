@@ -19,19 +19,11 @@ CREATE TABLE Tipo(
 
 	Tipo_id INT NOT NULL auto_increment,
 	Descr VARCHAR(15) NOT NULL,
+	Foto VARCHAR(50) NOT NULL,
 
 	PRIMARY KEY(Tipo_id)
 
 );
-
-INSERT INTO Tipo(Descr) VALUES("Salsa");
-INSERT INTO Tipo(Descr) VALUES("Semilla");
-INSERT INTO Tipo(Descr) VALUES("Grano");
-INSERT INTO Tipo(Descr) VALUES("Frutos");
-INSERT INTO Tipo(Descr) VALUES("Café");
-INSERT INTO Tipo(Descr) VALUES("Dulces");
-INSERT INTO Tipo(Descr) VALUES("Chile");
-INSERT INTO Tipo(Descr) VALUES("Empaquetados");
 
 
 CREATE TABLE Receta(
@@ -75,7 +67,6 @@ CREATE TABLE Producto(
 	Precio DECIMAL(8,2) NOT NULL,
 
 	Foto VARCHAR(50) NOT NULL,
-	Tipo_id INT NOT NULL REFERENCES Tipo(Tipo_id),
 
 	Creado DATETIME NOT NULL,
 
@@ -83,12 +74,26 @@ CREATE TABLE Producto(
 
 );
 
-INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Tipo_id, Creado) VALUES("Salsa Picosita 150 gr", "Salsa Picosita AhJijo de 150 Gramos", "COD", 35.00, "Inventario_SalsaPicosita150gr.jpeg", 1, '2021-03-26 02:43:19');
-INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Tipo_id, Creado) VALUES("Salsa Picosita 250 gr", "Salsa Picosita AhJijo de 250 Gramos", "COD", 60.00, "Inventario_SalsaPicosita250gr.jpeg", 1, '2021-03-26 02:47:05');
-INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Tipo_id, Creado) VALUES("Salsa Picosota 150 gr", "Salsa Picosa AhJijo de 150 Gramos", "COD", 35.00, "Inventario_SalsaPicosota150gr.jpeg", 1, '2021-03-26 02:48:05');
-INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Tipo_id, Creado) VALUES("Salsa Picosota 250 gr", "Salsa Picosa AhJijo de 250 Gramos", "COD", 60.00, "Inventario_SalsaPicosota250hr.jpeg", 1, '2021-03-26 02:50:05');
-INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Tipo_id, Creado) VALUES("Chipotles en conserva", "Deliciosos Chiles chipotles en conserva", "COD", 55.00, "Inventario_ChipotlesenConserva.jpeg", 7, '2021-03-26 02:54:05');
+INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Creado) VALUES("Salsa Picosita 150 gr", "Salsa Picosita AhJijo de 150 Gramos", "COD", 35.00, "Inventario_SalsaPicosita150gr.jpeg", '2021-03-26 02:43:19');
+INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Creado) VALUES("Salsa Picosita 250 gr", "Salsa Picosita AhJijo de 250 Gramos", "COD", 60.00, "Inventario_SalsaPicosita250gr.jpeg", '2021-03-26 02:47:05');
+INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Creado) VALUES("Salsa Picosota 150 gr", "Salsa Picosa AhJijo de 150 Gramos", "COD", 35.00, "Inventario_SalsaPicosota150gr.jpeg", '2021-03-26 02:48:05');
+INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Creado) VALUES("Salsa Picosota 250 gr", "Salsa Picosa AhJijo de 250 Gramos", "COD", 60.00, "Inventario_SalsaPicosota250hr.jpeg", '2021-03-26 02:50:05');
+INSERT INTO Producto(Nombre, Descr, Codigo, Precio, Foto, Creado) VALUES("Chipotles en conserva", "Deliciosos Chiles chipotles en conserva", "COD", 55.00, "Inventario_ChipotlesenConserva.jpeg", '2021-03-26 02:54:05');
 
+
+CREATE TABLE Producto_Tipo(
+	
+	Producto_id INT NOT NULL REFERENCES Producto(Producto_id),
+	Tipo_id INT NOT NULL REFERENCES Tipo(Tipo_id),
+	
+	PRIMARY KEY(Producto_id, Tipo_id)
+);
+
+INSERT INTO Producto_Tipo VALUES(1, 1);
+INSERT INTO Producto_Tipo VALUES(2, 1);
+INSERT INTO Producto_Tipo VALUES(3, 1);
+INSERT INTO Producto_Tipo VALUES(4, 1);
+INSERT INTO Producto_Tipo VALUES(5, 7);
 
 CREATE TABLE Receta_Producto(
 

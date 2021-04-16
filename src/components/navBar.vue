@@ -111,7 +111,7 @@
                       :key="categoria"
                     >
                     <!-- Poniendo las categorias en tarjetas -->
-                      <v-flex  class="ma-5">
+                      <v-flex  class="ma-6">
                         
                         <v-hover v-slot="{ hover }">
 
@@ -119,8 +119,20 @@
                             :elevation="hover ?  12: 1"
                             width="200"
                             height="100"
+                            @click="goToProducts(categoria.Descr)"
+                            dark
+                            
                           >
-                              <v-card-title v-text="categoria"></v-card-title>
+                            <v-img
+                              gradient="to bottom, rgba(0,0,0,.01), rgba(0,0,0,.9)"
+                              width="200"
+                              height="100"
+                              v-bind:src="require('../assets/tipos/' + categoria.Foto)"
+                              class="white--text align-end center"
+                            >
+
+                              <v-card-title v-text="categoria.Descr"></v-card-title>
+                            </v-img>
                           </v-card>
                         </v-hover>
 
@@ -164,23 +176,60 @@
 
 <script>
 
+import axios from 'axios'
+
 export default {
     name: "navBar",
   
     methods: {
+
+      //________________ Métodos para ir a las redes sociales
+
       facebook(){
         window.location.href = 'https://www.facebook.com/Ah-Jijo-Ésta-es-la-buena-2024980200865330';
       },
       instagram(){
         window.location.href = 'https://www.instagram.com/ahjijoestaeslabuena';
+      },
+
+
+
+      //___________________ Obtener los tipos
+      async getAllInfo(){
+
+        try {
+          
+          const response = await axios.get("http://localhost:5000/Tipos")
+          this.categoriasProductos = response.data
+
+        } catch (err) {
+          console.log(err)
+        }
+
+        
+      },
+
+      //_____________________ Ir a productos por medio de un tipo de productos
+
+      goToProducts(tipo){
+        this.$router.push("/Products/" + tipo)
+        this.expandProducts = false
       }
+
+
     },
 
     data: () => ({
 
       expandProducts: false,
-      categoriasProductos: ["Salsas", "Grano", "Semilla", "Fruto", "Café", "Dulces", "Chiles", "Empaquetados"],
+      categoriasProductos: [],
         
     }),
+
+    mounted(){
+      this.getAllInfo()
+    }
+
+    
 };
 </script>

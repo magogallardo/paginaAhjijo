@@ -37,7 +37,7 @@
                 -->
                 <v-dialog
                     v-model="dialog"
-                    max-width="700px"
+                    max-width="1000"
                 >   
                     <template v-slot:activator="{on, attrs}">
                         <v-btn
@@ -114,21 +114,49 @@
                                                 label="File input"
                                                 filled
                                                 prepend-icon="mdi-camera"
+                                                v-model="editedProduct.Foto"
                                             ></v-file-input>
                                         </template>
                                     </v-col>
+                                     
+
                                     <v-col
                                         cols="12"
                                         sm="6"
                                         md="4"
                                     >
-                                    <!-- Campo de Tipo de producto -->
-                                        <v-text-field
-                                            v-model="editedProduct.Tipo_id"
-                                            label="Tipo Id(EDITAR A DROPDOWN)"
-                                        ></v-text-field>
+                                    <!-- Campo para el tipo -->
+                                        <v-list shaped>
+                                            <v-list-item-group
+                                                v-model="TiposdelProducto"
+                                                multiple
+                                            >
+                                                <template v-for="(tipo, i) in Tipos">
+                                
+                                                    <v-list-item
+                                                        :key="`tipo-${i}`"
+                                                        :value="tipo.Tipo_id"
+                                                        active-class="deep-purple--text text--accent-4"
+                                                    >
+                                                        <template v-slot:default="{active}">
+                                                            <v-list-item-content>
+                                                                <v-list-item-title v-text="tipo.Descr"></v-list-item-title>
+                                                            </v-list-item-content>
+                                                            <v-list-item-action>
+                                                                <v-checkbox
+                                                                    :input-value="active"
+                                                                    color="deep-purple accent-4"
+                                                                ></v-checkbox>
+                                                            </v-list-item-action>
+                                                        </template>
+                                                    </v-list-item>
+                                                </template>
+                                            </v-list-item-group>
+                                        </v-list>
+                                        
                                     </v-col>
 
+                                     
                                 </v-row>
                             </v-container>
                         </v-card-text>
@@ -148,6 +176,7 @@
                                 @click="save"
                             >
                                 Guardar
+                                
                             </v-btn>
                         </v-card-actions>
 
@@ -224,7 +253,11 @@ export default {
 
     data: ()=> ({
 
+        LastProducto_id: -1,
         Productos: [],
+        Tipos: [],
+        TiposdelProducto: [],
+        Producto_Tipo: [],
         formTitle: "Agrega un nuevo producto",
 
         dialog: false,
@@ -238,7 +271,7 @@ export default {
             Codigo: "",
             Precio: "",
             Foto: "",
-            Tipo_id: "",
+
             Creado: "",
 
         },
@@ -249,7 +282,7 @@ export default {
             Codigo: "",
             Precio: "",
             Foto: "",
-            Tipo_id: "",
+
             Creado: "",
         },
 
@@ -261,7 +294,7 @@ export default {
                 value: 'Nombre',
             },
             { text: 'Precio', value: 'Precio' },
-            {text: 'Tipo', value: 'Tipo_id'},
+            //{text: 'Tipo', value: 'Tipo_id'},
             {text: 'Creado/Modificado', value: 'Creado'},
             {text: 'Editar/Borrar', value: 'actions', sortable: false },
         
@@ -283,6 +316,12 @@ export default {
 
         async getAllInfo(){
 
+            //Se necesitan las tablas:
+            //              Producto
+            //              Tipos
+            //              Producto_Tipo
+            //                      Para poder crear, leer, editar y eliminar cualquier producto
+
             try {
                     const response = await axios.get("http://localhost:5000/Productos");
                     this.Productos = response.data;
@@ -290,12 +329,38 @@ export default {
                     console.log(err);
                 }
 
+            try {
+                    const response = await axios.get("http://localhost:5000/Tipos");
+                    this.Tipos = response.data;
+
+                }catch(err) {
+                    console.log(err);
+                }
+
+            try {
+                    const response = await axios.get("http://localhost:5000/Producto_Tipo");
+                    this.Producto_Tipo = response.data;
+
+                }catch(err) {
+                    console.log(err);
+                }
+                    
         },
 
         editItem (item) {
 
                 this.editedIndex = item.Producto_id
                 this.editedProduct = Object.assign({}, item)
+
+                this.TiposdelProducto = []
+                
+                for (let i = 0; i<this.Producto_Tipo.length; i++) {
+                    var currentNumber = this.Producto_Tipo[i];
+                    if (currentNumber.Producto_id == this.editedIndex) {
+                        this.TiposdelProducto.push(currentNumber.Tipo_id)
+                    }
+                }
+
                 this.dialog = true
                 
             },
@@ -310,16 +375,22 @@ export default {
             },
             // Confirmar eliminar el elemento
             async deleteItemConfirm () {
-
+                
                 try{
                     await axios.delete(`http://localhost:5000/Productos/${this.editedIndex}`)
-                    this.getAllInfo();
+                    
                 }catch(err){
                     console.log(err)
                 }
                 
+                try{
+                    await axios.delete(`http://localhost:5000/Producto_Tipo/${this.editedIndex}`)
+                    
+                }catch(err){
+                    console.log(err)
+                }
                 
-                
+                this.getAllInfo()
                 this.closeDelete()
             },
 
@@ -330,6 +401,7 @@ export default {
                 this.$nextTick(() => {
                 this.editedProduct = Object.assign({}, this.defaultItem)
                 this.editedIndex = -1
+                this.TiposdelProducto = []
                 })
             },
 
@@ -348,7 +420,7 @@ export default {
                 if (this.editedIndex > -1) {
 
                     try{
-                            
+                            //Actualizando los datos de PRODUCTO
                             await axios.put(
                                 `http://localhost:5000/Productos/${this.editedIndex}`,
                             {
@@ -356,8 +428,9 @@ export default {
                                 Descr:      this.editedProduct.Descr,
                                 Codigo:     this.editedProduct.Codigo,
                                 Precio:     this.editedProduct.Precio,
-                                Foto:       this.editedProduct.Foto,
-                                Tipo_id:    this.editedProduct.Tipo_id,
+                                //USANDO EL NOMBRE Unicamente del Objeto FILE
+                                Foto:       this.editedProduct.Foto.name,
+                                
                                 Creado:     '2021-03-26 02:54:05',
                                 id:         this.editedIndex,
 
@@ -365,11 +438,41 @@ export default {
                     }catch(err){
                         console.log(err)
                     }
+                    //Borrando y generando nuevos registros en la tabla Producto_Tipo
+                    
+                        //BORRANDO
+                    try{
+                        await axios.delete(`http://localhost:5000/Producto_Tipo/${this.editedIndex}`)
+                        
+                    }catch(err){
+                        console.log(err)
+                    }
+                        //CREANDO NUEVO
+
+                    for(var j = 0; j < this.TiposdelProducto.length; j++){
+
+                         try{
+
+                            await axios.post("http://localhost:5000/Producto_Tipo",{
+                            
+                                Producto_id: this.editedIndex,
+                                Tipo_id: this.TiposdelProducto[j],
+
+                            });
+                        }catch(err){
+                            console.log(err)
+                        
+                        }
+                    }
+
+
 
                     this.getAllInfo()
 
                 } else {
                     
+
+                    //Guardando los datos de PRODUCTO
                     try{
 
                         await axios.post("http://localhost:5000/Productos",{
@@ -378,8 +481,9 @@ export default {
                         Descr:      this.editedProduct.Descr,
                         Codigo:     this.editedProduct.Codigo,
                         Precio:     this.editedProduct.Precio,
-                        Foto:       this.editedProduct.Foto,
-                        Tipo_id:    this.editedProduct.Tipo_id,
+                        //USANDO EL NOMBRE Unicamente del Objeto FILE
+                        Foto:       this.editedProduct.Foto.name,
+                        
                         Creado:     '2021-03-26 02:54:05'
 
                         });
@@ -388,6 +492,37 @@ export default {
                        
                     }
 
+                    //Guardando los datos del TIPO DEL PRODUCTO
+
+                    //Obtener primero el último ID añadido
+                    try{
+                        const response = await axios.get("http://localhost:5000/LastProducto_id");
+                        
+                        this.LastProducto_id = response.data[0] 
+
+                    }catch(err){
+                        
+                        console.log(err)
+                    }
+
+
+                    for(var i = 0; i < this.TiposdelProducto.length; i++){
+                         try{
+
+                            await axios.post("http://localhost:5000/Producto_Tipo",{
+                            
+                                Producto_id: this.LastProducto_id.maximo,
+                                Tipo_id: this.TiposdelProducto[i],
+
+                            });
+                        }catch(err){
+                            console.log(err)
+                        
+                        }
+                    }
+                    
+                    
+                    
                     this.getAllInfo()
                 }
 
@@ -399,6 +534,13 @@ export default {
     mounted(){
 
         this.getAllInfo()
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key == 'Escape') {
+                if(this.dialog == true)
+                    this.close()
+            }
+        });
 
     }
 }

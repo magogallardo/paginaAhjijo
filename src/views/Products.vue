@@ -17,9 +17,6 @@
         <h1 id = "encabezadoProductos" class="mt-10">
           Productos disponbles
         </h1>
-        <h2 id= "subEncabezadoProductos">
-          {{this.TipoSeleccionado}}
-        </h2>
       </v-col>
 
     </v-row>
@@ -32,6 +29,7 @@
                 class="ma-4"
                 height="200"
                 width="150"
+                :object="product.Producto_id"
                 
             >
             <v-img
@@ -84,6 +82,8 @@ export default {
       model: null,
 
       products: [],
+      Producto_Tipo: [],
+      tipos: [],
       TipoSeleccionado: "",
 
 
@@ -95,7 +95,8 @@ export default {
 
       async getAllInfo(){
 
-
+      
+      //Obteniendo productos
       try {
       
           const response = await axios.get("http://localhost:5000/Productos");
@@ -103,11 +104,28 @@ export default {
         } catch (err) {
             console.log(err);
         }
+      // Obteniendo los tipos de los productos
+      try {
+      
+          const response = await axios.get("http://localhost:5000/Producto_Tipo");
+          this.Producto_Tipo = response.data;
+        } catch (err) {
+            console.log(err);
+        }
+      try {
+      
+          const response = await axios.get("http://localhost:5000/Tipos");
+          this.tipos = response.data;
+        } catch (err) {
+            console.log(err);
+        }
+
+
       },
 
+      
 
     },
-
 
     created(){
       this.getAllInfo()
@@ -115,6 +133,21 @@ export default {
       
     },
 
+    
+    computed: {
+      
+
+      isThisProductOfType: function() {
+      
+        alert(this.props.object)
+        
+        return true
+      }
+
+
+    }
+
+    
     
 
 };

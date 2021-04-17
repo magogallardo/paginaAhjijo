@@ -1,80 +1,113 @@
 <template>
-    <div class="ma-10">
+    <div class="ma-2">
 
         <!-- Fila principal  -->
-        <v-row justify="center" align="center">
-            <!-- Columna para Titulo -->
-            <v-col
-                cols="12"
-                class="text-center"
-            >
-                <h1 id="tituloEncabezado">Bienvenido al panel de control, {{ Usuario }}</h1>
-                
-            </v-col>
-            <v-col
-                cols="12"
-            >
-                <v-btn class="text" @click="expandInfo =! expandInfo">Informacion General</v-btn>
-            </v-col>
-            
-            
-            <!-- Columna de info general  -->
-            <v-expand-transition>
-                <v-col
-                    v-show="expandInfo"
-                    cols="12"
-                    
-                >   
-                <!-- Usando el componente de tabla de info CRUD -->
-                   <tablaInfoCRUD/>
-                </v-col>
-            </v-expand-transition>
+        <v-row >
 
-            <!-- Sección de Productos -->
-            <v-col
-                cols="12"
-            >
-                <v-btn class="text" @click="expandProductos =! expandProductos">Productos</v-btn>
-            </v-col>
-            <!-- Columna expansiva de productos -->
-            <v-expand-transition>
-                <v-col
-                    v-show="expandProductos"
-                    cols="8"
+            <!-- Barra de navegación lateral -->
+            <v-col cols="auto">
+                <v-card
+                    height="400"
+                    width="256"
+                    class="mx-auto"
                 >
-                    <!-- Usando el componente de tabla de productos CRUD -->
-                    <tablaProductosCRUD/>
+                    <v-navigation-drawer permanent>
+                    <v-list-item>
+                        <v-list-item-content>
+                        <v-list-item-title class="title">
+                            Panel de control 
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                            USUARIO ACTIVO
+                        </v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                    <!-- Columna de los tipos de producto -->
-                    <v-col
-                        cols="6"
+                    <v-divider></v-divider>
+
+                    <v-list
+                        dense
+                        nav
                     >
-                        <!-- Usando el componente de la tabla de tipos CRUD -->
-                        <tablaTipoCRUD/>
+                        <v-list-item
+                        v-for="item in items"
+                        :key="item.title"
+                        link
+                        @click="setSelected(item)"
+                        >
+                        <v-list-item-icon>
+                            <v-icon>{{ item.icon }}</v-icon>
+                        </v-list-item-icon>
 
-                    </v-col>
+                        <v-list-item-content>
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                        
+                        
+                        </v-list-item>
+                        
+                    </v-list>
 
-                </v-col>
-            </v-expand-transition>
+                    <v-divider></v-divider>
 
-            <!-- Sección de Recetas -->
-            <v-col
-                cols="12"
-            >
-                <v-btn class="text" @click="expandRecetas =! expandRecetas">Recetas</v-btn>
+
+                    <v-list
+                        dense
+                        nav
+                    >
+                        <v-list-item
+                        v-for="item in childItems"
+                        :key="item.title"
+                        link
+                        @click="setSelected(item)"
+                        >
+                        <v-list-item-icon>
+                            <v-icon>{{ item.icon }}</v-icon>
+                        </v-list-item-icon>
+
+                        <v-list-item-content>
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                        
+                        
+                        </v-list-item>
+                        
+                    </v-list>
+
+                    </v-navigation-drawer>
+                </v-card>
+
             </v-col>
 
-            <!-- Columna expansiva de Recetas -->
-            <v-expand-transition>
-                <v-col
-                    v-show="expandRecetas"
-                    cols="12"
-                >
+            <!-- Columna condicional de la tabla productos -->
+            <v-col
+                v-if="selectedView == 'Productos'"
+            >
+                <tablaProductosCRUD/>
+            </v-col>
 
-                    <tablaRecetasCRUD/>
+            <!-- Columna condicional de la tabla Recetas -->
+            <v-col
+                v-if="selectedView == 'Recetas'"
+            >
+                <tablaRecetasCRUD/>
+            </v-col>
+            
+            <!-- Columna adicional de la tabla Info -->
+            <v-col
+                v-if="selectedView == 'Info'"
+            >
+                <tablaInfoCRUD/>
+            </v-col>
+            <!-- Columna condicional de la tabla tipos -->
 
-                </v-col>
-            </v-expand-transition>
+            <v-col
+                v-if="selectedView == 'Tipos de productos'"
+            >
+                <tablaTipoCRUD/>
+            </v-col>
+
+
 
         </v-row>
         
@@ -108,14 +141,29 @@
             expandInfo: false,
             expandProductos: true,
             expandRecetas: true,
+            selectedView: "Productos",
             
+            expandTipos: false,
+
+            childItems: [
+                {title: 'Tipos de productos', parent: 'Productos', show: false, icon: 'mdi-view-dashboard'},  
+            ],
+
+            items: [
+          { title: 'Productos', icon: 'mdi-view-dashboard' },
+          { title: 'Recetas', icon: 'mdi-image' },
+          { title: 'Info', icon: 'mdi-help-box' },
+        ],
+        right: null,
 
 
         }),
 
         methods: { 
+           setSelected(item){
+               this.selectedView = item.title           
+           }
            
-
         },
 
     };

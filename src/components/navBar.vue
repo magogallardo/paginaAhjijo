@@ -119,7 +119,7 @@
                             :elevation="hover ?  12: 1"
                             width="200"
                             height="100"
-                            @click="goToProducts(categoria.Descr)"
+                            @click="goToProducts(categoria.Tipo_id)"
                             dark
                             
                           >

@@ -9,12 +9,26 @@
     <!-- Definiendo la tabla:
             Usa como cabeceras el arreglo "Headers"
      -->
+
+    <v-card>
+    <v-card-title>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Buscar"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+
     <v-data-table
         :headers="headersProductos"
         :items="Productos"
+        :search="search"
         sort-by="Creado"
         class="elevation-3"
     >
+        
         <template v-slot:top>
             <v-toolbar
                 flat
@@ -126,6 +140,21 @@
                                         md="4"
                                     >
                                     <!-- Campo para el tipo -->
+
+                                    <v-menu
+                                        offset-y
+                                        :close-on-content-click=false
+                                    >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-btn
+                                        color="white"
+                                        
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        >
+                                        Escoge uno O varios tipos
+                                        </v-btn>
+                                    </template>
                                         <v-list shaped>
                                             <v-list-item-group
                                                 v-model="TiposdelProducto"
@@ -153,7 +182,7 @@
                                                 </template>
                                             </v-list-item-group>
                                         </v-list>
-                                        
+                                    </v-menu>
                                     </v-col>
 
                                      
@@ -239,6 +268,7 @@
         </v-btn>
         </template>
     </v-data-table>
+    </v-card>
 </template>
 
 <script>
@@ -259,6 +289,8 @@ export default {
         TiposdelProducto: [],
         Producto_Tipo: [],
         formTitle: "Agrega un nuevo producto",
+
+        search: "",
 
         dialog: false,
         dialogDelete: false,

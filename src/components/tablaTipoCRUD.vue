@@ -9,9 +9,13 @@
     <!-- Definiendo la tabla:
             Usa como cabeceras el arreglo "Headers"
      -->
+
+
     <v-data-table
         :headers="headersProductos"
         :items="Productos"
+        :search="search"
+        :custom-filter="filterOnlyCapsText"
         sort-by="Creado"
         class="elevation-3"
         id="tablaTipos"
@@ -115,7 +119,7 @@
                                 Este manda llamar la función "delteItemConfirm"
                                 en caso de confirmar.
                                 Y la función "closeDelete" en caso de cancelar
-                 -->
+                -->
 
                 <v-dialog
                     v-model="dialogDelete"
@@ -138,7 +142,7 @@
         <!-- Acciones de edición:
                 Usa como cabeceras el arreglo "Headers"
 
-         -->
+        -->
 
         <template v-slot:[`item.actions`]="{ item }">
         <v-icon
@@ -183,6 +187,8 @@ export default {
 
         dialog: false,
         dialogDelete: false,
+
+        search: "",
 
         editedIndex : -1,
         editedProduct: {

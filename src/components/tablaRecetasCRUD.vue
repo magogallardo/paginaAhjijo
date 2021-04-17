@@ -44,91 +44,88 @@
                             Crear nuevo
                         </v-btn>
                     </template>
-                    <v-card>
+                    <v-card
+                        width="800"
+                    >
                         <v-card-title>
                             <span class="headline">{{ formTitle }}</span>
                         </v-card-title>
                         <v-card-text>
                             <v-container>
                                 <v-row>
+                                    <!-- Campo para editar Titulo -->
                                     <v-col
                                         cols="12"
-                                        sm="6"
-                                        md="4"
                                     >
-                                    <!-- Campo para editar Titulo -->
                                         <v-text-field
                                             v-model="editedProduct.Titulo"
                                             label="Titulo"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
+
                                     <!-- Campo para editar Descripción -->
-                                        <v-text-field
-                                            v-model="editedProduct.Descr"
+                                    <v-col
+                                        cols="12"
+                                    >
+                                        <v-textarea
+                                            name="input-7-1"
                                             label="Descripción"
-                                        ></v-text-field>
+                                            v-model="editedProduct.Descr"
+                                            hint="Añade una descripción breve"
+                                        ></v-textarea>
+
+
                                     </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
+                                        
+
                                     <!-- Preparación (DEBE SER CAMPO GRANDE) -->
-                                        <v-text-field
+                                    <v-col
+                                        cols="12"
+                                    >
+                                        <v-textarea
+                                            name="input-7-1"
+                                            label="Preparación"
                                             v-model="editedProduct.Preparacion"
-                                            label="Preparacion"
-                                        ></v-text-field>
+                                            hint="Usa enter para separar pasos"
+                                            counter
+                                            :rules="preparacionRules"
+                                        ></v-textarea>
                                     </v-col>
+                                    <!-- Tiempo MINUTOS de preparación -->
                                     <v-col
                                         cols="12"
                                         sm="6"
                                         md="4"
                                     >
-                                    <!-- Tiempo MINUTOS de preparación -->
                                         <v-text-field
                                             v-model="editedProduct.TiempoPreparacion"
                                             label="Tiempo de preparacion"
                                         ></v-text-field>
                                     </v-col>
+                                    <!-- Campo de Likes de receta -->
                                     <v-col
                                         cols="12"
                                         sm="6"
                                         md="4"
                                     >
-                                    <!-- Campo de Likes de receta -->
                                         <v-text-field
                                             v-model="editedProduct.Likes"
                                             label="Likes"
                                         ></v-text-field>
                                     </v-col>
+                                    <!-- Campo de Foto -->
                                     <v-col
                                         cols="12"
                                         sm="6"
                                         md="4"
                                     >
-                                    <!-- Campo de Foto -->
                                         <v-text-field
                                             v-model="editedProduct.Foto"
                                             label="Foto"
                                         ></v-text-field>
                                     </v-col>
 
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
                                     <!-- Campo de Tipo de producto -->
-                                        <v-text-field
-                                            v-model="editedProduct.Tipo_id"
-                                            label="Tipo Id(EDITAR A DROPDOWN)"
-                                        ></v-text-field>
-                                    </v-col>
 
                                 </v-row>
                             </v-container>
@@ -227,10 +224,16 @@ export default {
 
         Productos: [],
 
+        formTitle: "Receta",
+
         dialog: false,
         dialogDelete: false,
 
         editedIndex : -1,
+
+        preparacionRules: [v => v.length <= 700 || 'Máximo 700 caracteres'],
+
+
         editedProduct: {
             
             Titulo: "",
@@ -239,8 +242,8 @@ export default {
             TiempoPreparacion: "",
             Likes: "",
             Foto: "",
-            Tipo_id: "",
-            Creado: "",
+            Tipo_id: 0,
+            Creado: '2021-03-26 02:43:19',
 
         },
         defaultItem: {
@@ -251,8 +254,8 @@ export default {
             TiempoPreparacion: "",
             Likes: "",
             Foto: "",
-            Tipo_id: "",
-            Creado: "",
+            Tipo_id: 0,
+            Creado: '2021-03-26 02:43:19',
         },
 
         headersProductos:[
@@ -263,8 +266,7 @@ export default {
                 value: 'Titulo',
             },
             { text: 'Descripción', value: 'Descr' },
-            {text: 'Tiempo de preparación', value: 'Tipo_id'},
-            {text: 'Tipo', value: 'Tipo_id'},
+            {text: 'Tiempo de preparación', value: 'TiempoPreparacion'},
             {text: 'Creado/Modificado', value: 'Creado'},
             {text: 'Editar/Borrar', value: 'actions', sortable: false },
         

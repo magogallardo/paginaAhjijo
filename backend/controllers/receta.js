@@ -1,8 +1,19 @@
-import {getRecetas, insertReceta, updateRecetaById, deleteRecetaById} from "../models/recetaModel.js"
+import {getRecetas, getLastReceta_id,insertReceta, updateRecetaById, deleteRecetaById} from "../models/recetaModel.js"
 
 export const showRecetas = (req, res) => {
     getRecetas((err, results) => {
         if (err){
+            res.send(err);
+        }else{
+            res.json(results);
+        }
+    });
+}
+
+
+export const showLastReceta_id  = (req, res) =>{
+    getLastReceta_id((err, results) => {
+        if(err){
             res.send(err);
         }else{
             res.json(results);

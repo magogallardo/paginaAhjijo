@@ -13,6 +13,18 @@ export const getRecetas = (result) => {
     });   
 }
 
+// Mostrar el id de la última receta añadida
+
+export const getLastReceta_id = (result) =>{
+    db.query("SELECT MAX(Receta_id) AS maximo FROM Receta", (err, results) =>{
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    });
+}
 
 
 // Añadir productos a la DB

@@ -69,10 +69,13 @@ router.put('/Info/updateAll', updateAllInfoController);
     */
 
 
-import {showRecetas, createReceta, deleteReceta, updateReceta} from "../controllers/receta.js"
+import {showRecetas, showLastReceta_id,createReceta, deleteReceta, updateReceta} from "../controllers/receta.js"
 
 //_________________________________ Mostrar todas las recetas
 router.get('/Recetas', showRecetas);
+
+// Mostrar el Id de la última receta añadida
+router.get('/LastReceta_id', showLastReceta_id);
 
 //_________________________________ Insertar una nueva receta
 router.post('/Recetas', createReceta);
@@ -86,7 +89,7 @@ router.put('/Recetas/:id', updateReceta);
 
     /*
         //////////////////
-             Receta
+             Tipos
         /////////////////
     */
 
@@ -129,6 +132,31 @@ router.delete('/Producto_Tipo/:id', deleteProducto_Tipo);
 
 //___________________________________ Borrar un tipo por su tipo
 router.delete('/TiposByTipo_id/:id', deleteTipo_id);
+
+
+    /*
+        //////////////////
+         Receta_Producto
+        /////////////////
+    */
+
+
+import {showReceta_Producto, createReceta_Producto, delete_Receta_ProductoByProductoId, delete_Receta_ProductoByRecetaId } from "../controllers/receta_producto.js"
+
+//_________________________________ Mostrar todas los Receta_Producto
+router.get('/Receta_Producto', showReceta_Producto);
+
+//_________________________________ Insertar un registro en Receta_Producto
+router.post('/Receta_Producto', createReceta_Producto);
+
+//_________________________________ Borrar todos los registros en Receta_Producto por PRODUCTO_ID
+router.delete('/Receta_Producto/:id', delete_Receta_ProductoByProductoId);
+
+//___________________________________ Borrar todos los registros en Receta_Producto por RECETA_ID
+router.delete('/Receta_ProductoDeleteByReceta/:id', delete_Receta_ProductoByRecetaId);
+
+
+
 
 
 

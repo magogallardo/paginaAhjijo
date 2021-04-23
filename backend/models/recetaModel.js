@@ -57,10 +57,11 @@ export const deleteRecetaById = (id, result) =>{
 // Actualizar un producto por ID
 
 export const updateRecetaById = (data, id, result) => {
-    db.query("UPDATE Receta SET Titulo = ?, Descr = ?, Preparacion = ?, TiempoPreparacion = ?, Likes = ?, Foto = ?, Tipo_id = ? ,Creado = ? WHERE Receta_id = ?",
+    db.query("UPDATE Receta SET Titulo = ?, Descr = ?, Ingredientes = ?,Preparacion = ?, TiempoPreparacion = ?, Likes = ?, Foto = ?, Tipo_id = ? ,Creado = ? WHERE Receta_id = ?",
         [
             data.Titulo,
             data.Descr,
+            data.Ingredientes,
             data.Preparacion,
             data.TiempoPreparacion,
             data.Likes,

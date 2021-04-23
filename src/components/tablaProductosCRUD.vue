@@ -385,7 +385,7 @@ export default {
                 this.editedProduct = Object.assign({}, item)
 
                 this.TiposdelProducto = []
-                
+
                 for (let i = 0; i<this.Producto_Tipo.length; i++) {
                     var currentNumber = this.Producto_Tipo[i];
                     if (currentNumber.Producto_id == this.editedIndex) {
@@ -408,15 +408,29 @@ export default {
             // Confirmar eliminar el elemento
             async deleteItemConfirm () {
                 
+
+                //_______________- Borrando producto de Producto
+
                 try{
                     await axios.delete(`http://localhost:5000/Productos/${this.editedIndex}`)
                     
                 }catch(err){
                     console.log(err)
                 }
+
+                //________________ Borrando producto de Producto_Tipo
                 
                 try{
                     await axios.delete(`http://localhost:5000/Producto_Tipo/${this.editedIndex}`)
+                    
+                }catch(err){
+                    console.log(err)
+                }
+
+                //_________________ Borrando producto de Receta_Producto
+
+                try{
+                    await axios.delete(`http://localhost:5000/Receta_Producto/${this.editedIndex}`)
                     
                 }catch(err){
                     console.log(err)

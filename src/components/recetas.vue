@@ -1,176 +1,111 @@
 <template>
-    <v-parallax 
-    
-    src="../assets/Propuesta04-01.png"
-    height="auto"
-    
-  >
-    <v-container>
-
-        <v-row>
-            <v-divider></v-divider>
-        </v-row>
-      
-      <v-row
-        align="center"
-        justify="right"
-      >
-        <v-col
-          class="text-left ml-15"
-          cols="10"
-        >
-          <h1 id = "encabezadoRecetas">
-            Recetas
-          </h1>
-          
-        </v-col>
+  
+  <!-- Hoja principal -->
+  <v-sheet
+        class="mt-5"
+        elevation="0"
         
+    >   
 
-      </v-row>
-      <v-container>
-          <v-row
-            align="center"
-            justify="center"
-          >
-              <v-col
-              v-for="receta in recetasList"
-              :key="receta"
-              cols="6"
-                >
-                <v-card>
-                    <v-img
-                        v-bind:src="require('../assets/recetas/' + receta.src)"
-                        class="white--text align-end"
-                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.3)"
-                        height="200px"
-                    >
-
-                        <v-card-title v-text="receta.title" ></v-card-title>
-                        <v-card-subtitle class="white--text mt1" 
-                        v-text="receta.descr"
-                        
-                        ></v-card-subtitle>
-                    </v-img>
-
-                    <v-card-actions>
-                          <v-spacer></v-spacer>
-
-                          <v-btn to="/recetas">
-                            Leer
-                          </v-btn>
-
-                          <v-btn icon>
-                            <v-icon>mdi-heart</v-icon>
-                          </v-btn>
-
-                    </v-card-actions>
-                </v-card>
-
-              </v-col>
-          </v-row>
-
-
-      </v-container>
-
-        <v-divider></v-divider>
-
-        <v-row
-            align="center"
-            justify="center"
+        <!-- Carrusel de recetas -->
+        <v-slide-group
+        v-model="activeCarousel"
+        class="pa-4"
+        center-active
+        show-arrows
         >
-            <v-col
-              class align-self="center"
-              cols="1"
-              md="2"
-              sm="3"
+        <v-slide-item
+            v-for="receta in Recetas"
+            :key="receta"
+            v-slot="{toggle }"
+        >
+            <v-card
+              
+              elevation="0"
+              
+              @click="toggle"
+              class="text-center"
             >
-              <div>
-                <v-card
-                dark
-                  class="pa-2"
-                  tile
-                  color="#fefae9"
-                  
-                >  
-                    
-                    <router-link to="/Recetas" >Ver todas</router-link>
-                    
-                </v-card>
-              </div>
-            </v-col>
+
+              <v-img
+                max-width="300"
+                max-height="170"
+                
+                v-bind:src="require('../assets/recetas/' + receta.Foto)"
+
+              ></v-img>
+
+              <v-card-title v-text="receta.Titulo"></v-card-title>
+              <v-row class="mt-n9">
+
+                <v-col
+                cols="4">
+
+                  <v-card-text><v-icon>mdi-heart</v-icon> {{receta.Likes}}</v-card-text>
+                </v-col>
+                <v-col
+                  cols="8"
+                >
+                  <v-card-text><v-icon>mdi-clock</v-icon> {{receta.TiempoPreparacion}} minutos</v-card-text>
+                </v-col>
+
+                <v-spacer></v-spacer>
+
+              </v-row>
             
-        </v-row>
-    </v-container>
-  </v-parallax>
-
-
+            </v-card>
+        </v-slide-item>
+        </v-slide-group>
+    </v-sheet>
 </template>
+
+<script>
+// Importando Axios para conexión a la DB
+import axios from 'axios'
+
+
+
+export default {
+
+  name: "recetas",
+
+
+  data: () =>({
+
+    Recetas: [],
+    activeCarousel: null,
+
+
+  }),
+
+
+  methods:{
+
+    async getAllInfo(){
+
+       //_________________ cargando Recetas
+
+            try {
+                    const response = await axios.get("http://localhost:5000/Recetas");
+                    this.Recetas = response.data;
+                } catch (err) {
+                    console.log(err);
+                }
+
+    },
+
+  },
+
+
+  mounted(){
+    this.getAllInfo()
+  }
+
+  
+
+}
+</script>
 
 <style>
 
-.v-parallax__image {
-  position: absolute;
-}
-
-#encabezadoRecetas{
-
-  font-size: 50px;
-  -webkit-text-fill-color:#fefae9; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #4a4e2e;
-}
-
-#subencabezado{
-
-  font-size: 30px;
-  -webkit-text-fill-color:#ec6214; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color:#4a4e2e;
-
-}
-
 </style>
-
-
-<script>
-export default {
-    name: "recetas",
-    
-    data: () => ({
-      
-        recetasList: [
-            {   
-
-              ////Parte estática a modificar después
-                id: "1",
-                title: "Alitas Ah Jijo!",
-                src: "alitas.jpeg",
-                descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
-                ingredients: [  ],
-                steps: [ ],
-
-            },
-            {   
-              //Parte estática a modificar después
-                id: "2",
-                title: "Enchiladas Ah Jijo!",
-                src: "enchiladas.jpeg",
-                descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
-                ingredients: [  ],
-                steps: [ ],
-
-            },
-            {
-                id: "3",
-                title: "Brochetas Ah Jijo!",
-                src: "alitas.jpeg",
-                descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
-                ingredients: [  ],
-                steps: [ ],
-
-            }
-        ]
-        
-    })
-};
-</script>

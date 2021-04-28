@@ -1,164 +1,125 @@
 <template>
-    <div>
+   <div
+   >
+   
+   <!-- Fila principal -->
+    <v-row>
 
-        <v-parallax
-            src="../assets/Propuesta04-01.png"
-            height="auto"
+        <!-- Columna de titulo -->
+        <v-col
+            id="columnaTituloRecetas"
+            cols="5"
+            class="text-align-center "
+
         >
+     
+            <h1 id="TituloReceta" class="mt-8" >{{TituloReceta}}</h1>
+            <h2 id="SubtituloReceta">{{DescripcionReceta}}</h2>
+                
+
+
+        </v-col>
+
+        <!-- Columna de Receta del día -->
+        <v-col
+            
+            cols="7"
+        >
+
+            <v-card
+                class="mt-2"
+                elevation="0"
+                @click="toRecetas()"
+            >  
+
+                <v-col
+                    
+                    
+                >
+
+                    <v-card-title>
+                        Receta del día
+                    </v-card-title>
+                    
+                </v-col>
+
+                <v-container>
+                    <v-row class="mb-12">
+                        <v-col
+                            cols="6"
+                        >
+
+                        <v-img
+                            v-bind:src="require('../assets/recetas/' + Recetas[selectedReceta].Foto)"
+                            contain
+                            max-height="300px"
+                        >
+                        </v-img>
+
+                        </v-col>
+                        <v-col
+                            cols="6"
+                        >
+                            <v-card-title v-text="Recetas[selectedReceta].Titulo"></v-card-title>
+                            <v-card-text v-text="Recetas[selectedReceta].Descr"></v-card-text>
+                            <v-card-text>Tiempo de preparación: {{Recetas[selectedReceta].TiempoPreparacion}} minutos</v-card-text>
+                            <v-card-text><v-icon>mdi-heart</v-icon> A {{Recetas[selectedReceta].Likes}} personas les gustó esta receta</v-card-text>
+        
+                        </v-col>
+                    </v-row>
+
+                    
+                
+                </v-container>
+                
+
+            </v-card>
+
+        </v-col>
+
+        <!-- Columna de receta descripción -->
+        
+
+        <!-- Columna de carrusel -->
+        <v-col
+            cols="9"
+        >
+
+            <recetas/>   
+
+        </v-col>
+
+        <v-col
+            cols="3"
+            id="columnaTituloRecetas"
+            class="text-align-center"
+            
+        >
+        <v-layout
+            row
+            wrap
+
+        >
+
             <v-container>
 
-                <!--  Layout principal divido en dos -->
-                <v-row
-                    class="ma-5"
-                >   
-                    <!--  Columna de la info  -->
-                    <v-col
-                        cols="5"
-                    >   
-                        <!--  Titulo  -->
-                        <v-row
-                            class="text-left"
-                            align="left"
-                            justify="center"
-
-                        >
-                            <h2 id="encabezadoRecetas" v-text="recetasList[selectedItem].title"></h2>
-                        </v-row>
-                        <v-row
-                            class="text-right"
-                            
-                        >   
-                            
-                            <v-col
-                                class="text-right"
-                            >
-                             <h2 id="subencabezado" v-text="recetasList[selectedItem].descr"></h2>   
-
-                            </v-col>
-
-
-                        </v-row>
-
-                        <v-row
-                            class="text-right"
-                            alig
-                        >   
-                            
-                            <v-col
-                                cols="4"
-                            >
-                                <ul id="v-for-object" class="demo">
-                                    <li v-for="value in recetasList[selectedItem].ingredients"
-                                    :key="value">
-                                        {{ value }}
-                                    </li>
-                                </ul>
-                                
-                            </v-col>
-
-                            <v-col
-                                class="text-left"
-                            >
-                                <ul id="v-for-object" class="demo">
-                                    <li v-for="value in recetasList[selectedItem].steps"
-                                    :key="value">
-                                        {{ value }}
-                                    </li>
-                                </ul> 
-
-                            </v-col>
-
-
-                        </v-row>
-
-
-
-                    </v-col>
-
-                    <!-- Columna de foto -->
-                    <v-col
-                        class="ma-2"
-                        cols="6"
-                    >
-                        <v-img 
-
-                            v-bind:src="require('../assets/recetas/' + recetasList[selectedItem].src)"
-                            alt="imagenReceta"
-                            contain
-
-                            height="350"
-                            width="auto"
-
-                        ></v-img>
-                    </v-col>
-
-                </v-row>
-
-                <!--    Fila del slide view de las recetas    -->
-
-
-                <v-row>
-                    
-                    <v-col
-                        cols="12"
-                    >
+                <v-btn icon 
+                class="my-10"
+                >
+                    <v-icon size="70px">mdi-carrot</v-icon>
+                    <span class="mx-2">Ver todas</span>
                         
-                        <h4 id="encabezadoRecetas">Todas las recetas:</h4>
-                    </v-col>
+                </v-btn>
 
-                    <v-col
-                        cols="12"
-                    >
-                        <v-slide-group
-                            v-model="model"
-                            class="pa-4"
-                            show-arrows
-                        >
+            </v-container>
 
-                            <v-slide-item
-                            v-for="receta in recetasList"
-                            :key="receta"
-                            v-slot="{ active}"
-                            >
-                                <v-card
-                                    :color="active ? 'primary' : 'grey lighten-1'"
-                                    class="ma-4"
-                                    height="300"
-                                    width="300"
-                                    @click="selectItem(2)"
-                                    :img="require('../assets/recetas/' + receta.src)"
-                                >   
+        </v-layout>
 
-                                    <v-row
-                                      class="fill-height"
-                                      align="center"
-                                      justify="center"
-                                    >
-                                        
-                                        
-                                        <v-scale-transition>
-                                          <v-icon
-                                            v-if="active"
-                                            color="white"
-                                            size="48"
-                                            v-text="'mdi-close-circle-outline'"
-                                          ></v-icon>
-                                        </v-scale-transition>
-
-                                    </v-row>
-                                </v-card>
-
-                            </v-slide-item> 
-
-                        </v-slide-group>
-
-                    </v-col>
-                </v-row>
-
-            </v-container>  
-        </v-parallax>
-
-    </div>
+        </v-col>
+   
+    </v-row>
+   
+   </div>
 </template>
 
 <style>
@@ -184,69 +145,110 @@
 
 }
 
+#columnaTituloRecetas{
+
+    background-color:#e9aa65;
+    height: auto;
+    text-align: center;
+    align-content: center;
+    
+
+
+}
+
+#columnaSubtituloRecetas{
+
+    background-color:#e06f21;
+    text-align: center;
+    align-content: center;
+
+
+}
+
+#TituloReceta{
+
+    font-size: 75px;
+
+}
+
 </style>
 
 
 <script>
+
+import axios from 'axios'
+
+// Importando componentes
+import recetas from "../components/recetas.vue"
+
 export default {
     name: "Recetas",
 
-    methods: {
-        selectItem(){
-            this.selectedItem = 2;
-            console.log(" Hello ");
-        },
-        toggle(value){
-            this.selectedItem = value;
-            console.log(" Hello ");
-        }
+
+    components: {
+        recetas,
     },
+
+    methods: {
+
+        async getAllInfo(){
+
+            //_________________ cargando Recetas
+
+            try {
+                    const response = await axios.get("http://localhost:5000/Recetas");
+                    this.Recetas = response.data;
+                } catch (err) {
+                    console.log(err);
+                }
+
+            //___________ Cargando productos
+
+            try {
+
+                const response = await axios.get("http://localhost:5000/Productos");
+                this.Productos = response.data;
+            } catch(err) {
+                console.log(err);
+            }
+
+            //____________ Obteniendo Receta_Producto
+
+            try {
+                const response = await axios.get("http://localhost:5000/Receta_Producto")
+                this.Receta_Productos = response.data;
+            }catch(err){
+                console.log(err);
+            }
+
+        },
+        
+
+        
+    },
+
+
+    created(){
+        
+        this.getAllInfo()
+    
+    },
+
 
     data: () => ({
 
-        selectedItem: 0,
+        Recetas: [],
+        Productos: [],
+        Receta_Productos: [],
 
-        recetasList: [
-            {   
 
-              ////Parte estática a modificar después
-                id: "1",
-                title: "Alitas Ah Jijo!",
-                src: "alitas.jpeg",
-                descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
-                ingredients: [ "Ingrediente 1", "Ingrediente 2", "Salsa AhJijo Picosota" ],
-                steps: [ "Paso1 ", " Paso2 ", "Paso3",],
+        activeCarousel: null,
 
-            },
-            {   
-              //Parte estática a modificar después
-                id: "2",
-                title: "Enchiladas Ah Jijo!",
-                src: "enchiladas.jpeg",
-                descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
-                ingredients: [ "Ingrediente 1", "Ingrediente 2", "Salsa AhJijo Picosota" ],
-                steps: [ "Paso1 ", " Paso2 ", "Paso3",],
-
-            },
-            {
-                id: "3",
-                title: "Brochetas Ah Jijo!",
-                src: "alitas.jpeg",
-                descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
-                ingredients: [ "Ingrediente 1", "Ingrediente 2", "Salsa AhJijo Picosota" ],
-                steps: [ "Paso1 ", " Paso2 ", "Paso3",],
-
-            },
-            {   
-              //Parte estática a modificar después
-                id: "2",
-                title: "RECETA4 Ah Jijo!",
-                src: "enchiladas.jpeg",
-                descr: "Deliciosas alitas con sabor inigualable Ah Jijo!",
-                ingredients: [ "Ingrediente 1", "Ingrediente 2", "Salsa AhJijo Picosota" ],
-                steps: [ "Paso1 ", " Paso2 ", "Paso3",],
-            },
-        ]
+        selectedReceta: 3,
+        
+        TituloReceta: "Recetas",
+        DescripcionReceta: "En AhJijo, Ésta es la buena, hemos propuesto algunas recetas para que puedas sorprender a tu familia con un delicioso platillo preparado con nuestros productos "
+        
         
     })
 

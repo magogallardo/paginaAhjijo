@@ -2,7 +2,12 @@
   <div class="home">
     
     <v-main>
-      <recetas/>
+      <v-col
+        cols="7"
+      >
+        <recetas/>
+
+      </v-col>
       <encuentranos/>
 
     </v-main>

@@ -14,6 +14,8 @@
         >
      
             <h1 id="TituloReceta" class="mt-8" >{{TituloReceta}}</h1>
+
+            <v-divider></v-divider>
             <h2 id="SubtituloReceta">{{DescripcionReceta}}</h2>
                 
 
@@ -29,7 +31,7 @@
             <v-card
                 class="mt-2"
                 elevation="0"
-                @click="toRecetas()"
+                @click="seeReceta(Recetas[selectedReceta].Receta_id)"
             >  
 
                 <v-col
@@ -38,7 +40,7 @@
                 >
 
                     <v-card-title>
-                        Receta del día
+                        Receta sugerida
                     </v-card-title>
                     
                 </v-col>
@@ -221,7 +223,17 @@ export default {
                 console.log(err);
             }
 
+            this.selectedReceta = Math.floor(Math.random(1) * this.Recetas.length)
+
         },
+
+        seeReceta(RecetaId){
+            
+            window.location.href = '/recetas/' + RecetaId
+
+        }
+
+        
         
 
         
@@ -231,7 +243,7 @@ export default {
     created(){
         
         this.getAllInfo()
-    
+        
     },
 
 

@@ -17,13 +17,13 @@
         <v-slide-item
             v-for="receta in Recetas"
             :key="receta"
-            v-slot="{toggle }"
+            
         >
             <v-card
               
               elevation="0"
               
-              @click="toggle"
+              @click="seeReceta(receta.Receta_id)"
               class="text-center"
             >
 
@@ -93,6 +93,12 @@ export default {
                 }
 
     },
+
+    seeReceta(RecetaId){
+            
+            window.location.href = '/recetas/' + RecetaId
+
+        }
 
   },
 

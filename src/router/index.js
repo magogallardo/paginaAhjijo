@@ -7,7 +7,7 @@ import Recetas from "../views/Recetas.vue"
 import Encuentranos from "../views/Encuentranos.vue"
 import Login from "../views/Login.vue"
 import PanelDeControl from "../views/PanelDeControl.vue"
-
+import VistaReceta from "../views/VistaReceta.vue"
 
 //Prueba de fetch
 import AdminProductos from "../views/AdminProductos.vue"
@@ -35,6 +35,11 @@ const routes = [
     path: "/recetas",
     name: "Recetas",
     component: Recetas
+  },
+  {
+    path: "/recetas/:recetaId",
+    name: "VistaReceta",
+    component: VistaReceta
   },
   {
     path: "/encuentranos", 

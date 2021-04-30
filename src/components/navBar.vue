@@ -212,7 +212,8 @@ export default {
       //_____________________ Ir a productos por medio de un tipo de productos
 
       goToProducts(tipo){
-        this.$router.push("/Products/" + tipo)
+        window.location.href = "/Products/" + tipo
+        
         this.expandProducts = false
       }
 

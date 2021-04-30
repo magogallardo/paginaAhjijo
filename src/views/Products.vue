@@ -1,10 +1,7 @@
 <template>
-    <div>
-        <v-parallax
+    <div id="divPrincipal">
         
-      src="../assets/Propuesta02-01.png"
-      height="auto"
-    >
+
 
     <v-row
       align="top"
@@ -14,22 +11,57 @@
         class="text-center"
         cols="7"
       >
-        <h1 id = "encabezadoProductos" class="mt-10">
+        <h1 id = "encabezadoProductos" class="ma-10">
           Productos disponbles
         </h1>
       </v-col>
 
     </v-row>
+    <v-tabs
+      v-model="tab"
 
-    <v-container>
+      background-color="transparent"
+      color="#87561f"
+      grow
+    >
+
+      <v-tab
+        v-for="tipo in tipos"
+        :key="tipo"
+      
+      >
+
+      {{tipo.Descr}}
+      </v-tab>
+
+    </v-tabs>
+
+    <v-tabs-items
+      v-model="tab"
+    
+    >
+      <v-tab-item
+        v-for="tipo in tipos"
+        :key="tipo"
         
-        <v-row justify="center" align="center">
-        <v-col  v-for="product in products" :key="product" >
+      >
+        
+        
+        <v-row justify="center" align="center"
+          id="filaProductos"
+        >
+        <v-col
+          cols="auto"  
+          v-for="product in products" 
+          :key="product" >
             <v-card
+                @click="showModel()"
+                v-if="isThisProductOfType(product, tipo.Tipo_id)"
+                color=#85401d
                 class="ma-4"
-                height="200"
-                width="150"
+                max-width="200"
                 :object="product.Producto_id"
+                dark
                 
             >
             <v-img
@@ -39,29 +71,37 @@
               width="300"
             >
             </v-img>
-            </v-card>
 
-            <v-card-title v-text="product.Nombre" id="TituloTarjetaProducto"></v-card-title>
-            <v-card-subtitle v-text="product.Descr" id="SubtituloTarjetaProducto"></v-card-subtitle>
-            <v-card-subtitle class="mt-n7" id="SubtituloTarjetaProducto">Precio: ${{product.Precio}}</v-card-subtitle>
+              <v-card-title v-text="product.Nombre" id="TituloTarjetaProducto"></v-card-title>
+              <v-card-subtitle v-text="product.Descr" id="SubtituloTarjetaProducto"></v-card-subtitle>
+              <v-card-subtitle class="mt-n7" id="SubtituloTarjetaProducto">Precio: ${{product.Precio}}</v-card-subtitle>
+            </v-card>
         </v-col>
         </v-row>
 
 
 
-    </v-container>
+ 
 
 
+      
+      </v-tab-item>
+    </v-tabs-items>
 
-
-    </v-parallax>
     </div>
 </template>
 
 
 <style>
 
+#divPrincipal{
+  color: "#87561f";
+}
 
+#filaProductos{
+  padding-top: 2%;
+  background-color: #b57b7b;
+};
 
 </style>
 
@@ -86,6 +126,8 @@ export default {
       tipos: [],
       TipoSeleccionado: "",
 
+
+      tab: 0,
 
 
 
@@ -119,33 +161,35 @@ export default {
         } catch (err) {
             console.log(err);
         }
-
+        this.TipoSeleccionado = this.$route.params.tipo
+        this.tab = this.TipoSeleccionado-1
+        
 
       },
 
+
+      isThisProductOfType(producto, tipo){
+        for(var i = 0; i < this.Producto_Tipo.length; i++){
+          if(this.Producto_Tipo[i].Producto_id == producto.Producto_id & tipo == this.Producto_Tipo[i].Tipo_id)
+            return true
+        }
+          return false
+      },
       
+
+      showModel(){
+        alert(this.tab)
+      }
 
     },
 
     created(){
       this.getAllInfo()
-      this.TipoSeleccionado = this.$route.params.tipo
+      
+      
       
     },
 
-    
-    computed: {
-      
-
-      isThisProductOfType: function() {
-      
-        alert(this.props.object)
-        
-        return true
-      }
-
-
-    }
 
     
     

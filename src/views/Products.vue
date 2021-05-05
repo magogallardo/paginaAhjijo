@@ -55,9 +55,10 @@
           v-for="product in products" 
           :key="product" >
             <v-card
-                @click="showModel()"
+                
+                @click="verProducto(product.Producto_id)"
                 v-if="isThisProductOfType(product, tipo.Tipo_id)"
-                color=#85401d
+                color=#7d5e42
                 class="ma-4"
                 max-width="200"
                 :object="product.Producto_id"
@@ -72,7 +73,7 @@
             >
             </v-img>
 
-              <v-card-title v-text="product.Nombre" id="TituloTarjetaProducto"></v-card-title>
+              <v-card-title  id="tituloTarjeta" v-text="product.Nombre"></v-card-title>
               <v-card-subtitle v-text="product.Descr" id="SubtituloTarjetaProducto"></v-card-subtitle>
               <v-card-subtitle class="mt-n7" id="SubtituloTarjetaProducto">Precio: ${{product.Precio}}</v-card-subtitle>
             </v-card>
@@ -101,7 +102,11 @@
 #filaProductos{
   padding-top: 2%;
   background-color: #b57b7b;
-};
+}
+
+#tituloTarjeta{
+   word-break: normal
+}
 
 </style>
 
@@ -179,7 +184,12 @@ export default {
 
       showModel(){
         alert(this.tab)
-      }
+      },
+
+      verProducto(productoId){
+        window.location.href = '/verProducto/' + productoId
+
+      },
 
     },
 

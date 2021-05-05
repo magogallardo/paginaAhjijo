@@ -8,6 +8,7 @@ import Encuentranos from "../views/Encuentranos.vue"
 import Login from "../views/Login.vue"
 import PanelDeControl from "../views/PanelDeControl.vue"
 import VistaReceta from "../views/VistaReceta.vue"
+import VistaProducto from "../views/VistaProducto.vue"
 
 //Prueba de fetch
 import AdminProductos from "../views/AdminProductos.vue"
@@ -30,6 +31,11 @@ const routes = [
     name: "Products",
     component: Products
 
+  },
+  {
+    path: "/verProducto/:productoId",
+    name: "VistaProducto",
+    component: VistaProducto
   },
   {
     path: "/recetas",

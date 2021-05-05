@@ -65,7 +65,6 @@
 
             <!-- Imagen de la receta -->
             <v-img
-                @click="lel()"
                 class="ma-10"
                 v-bind:src="require('../assets/recetas/' + Recetas[recetaId-1].Foto)"
                 contain
@@ -129,6 +128,7 @@
                             cols="auto"
                         >  
                             <v-card
+                                @click="verProducto(producto.Producto_id)"
                                 elevation="0"
                                 class="mx-1"
                                 color=#87561f
@@ -260,6 +260,11 @@ export default {
                         
                     }
                 }
+
+        },
+
+        verProducto(productoId){
+            window.location.href = '/verProducto/' + productoId
 
         },
 
